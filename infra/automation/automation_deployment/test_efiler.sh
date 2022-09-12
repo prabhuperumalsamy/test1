@@ -1,6 +1,6 @@
 echo checking for AWS credentials from Secret Manager
-accesskey=$(aws secretsmanager get-secret-value --secret-id 'automation_access_key' --query 'SecretString' --output text | jq -r '.automation_id')
-secretkey=$(aws secretsmanager get-secret-value --secret-id 'automation_access_key' --query 'SecretString' --output text | jq -r '.automation_access_key')
+accesskey=$(aws secretsmanager get-secret-value --secret-id 'efiler_test' --query 'SecretString' --output text | jq -r '.efileraccesskey')
+secretkey=$(aws secretsmanager get-secret-value --secret-id 'efiler_test' --query 'SecretString' --output text | jq -r '.efilersecretkey')
 
 echo Aws credentials retrieved from secret manager.......
 aws configure set aws_access_key_id $accesskey; aws configure set aws_secret_access_key $secretkey; aws configure set default.region "us-east-1"; aws configure set default.format "json"
