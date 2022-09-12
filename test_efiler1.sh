@@ -10,13 +10,13 @@ echo Checking for repo at ECR
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-efiler
 tag=$(aws ecr describe-images --repository-name actimize-test-efiler --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
 echo $tag
-sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/efiler.yaml
+sed -i 's@apache:apache@'"$repo:$tag"'@' ./efiler.yaml
 
 echo logging in to cluster
 aws eks --region us-east-1 update-kubeconfig --name test-actimize-eksCluster-0da6128
 
 echo Deployment has been initiated........
-kubectl apply -f ./infra/automation/deployment/efiler.yaml -n actimize
+kubectl apply -f ./efiler.yaml -n actimize
 
 cd ~/.aws
 rm -f /root/.aws/credentials
