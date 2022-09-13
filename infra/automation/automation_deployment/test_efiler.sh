@@ -8,15 +8,13 @@ echo AWS credentials configured Successfully
 
 #Command used to find the current image running inside the pod
 oldimage=$(kubectl describe deployment $app -n actimize | grep Image)
-echo Current running $app image:$oldimage
-nativeimage=grep -w "556277294023.dkr.ecr.us-east-1.amazonaws.com/$cluster" | awk -F: '{print $2}'
+echo Current running $app:$oldimage
 
 echo Checking for latest image at ECR Repository
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/$reponame
-tag=$(aws ecr describe-images --repository-name actimize-test-efiler --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
+tag=$(aws ecr describe-images --repository-name $reponame --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
 
 echo The Latest image found in $app:$tag
-if [ "$nativeimage" -nq "$tag" ]; then
 echo The given Image tag found in ECR Repository;
 sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/$app.yaml
 
@@ -30,7 +28,4 @@ cd ~/.aws
 rm -f /root/.aws/credentials
 echo Listing aws folder to confirm aws credentials has been removed from the custom Image...
 ls /root/.aws
-else
-echo The $app is already running with latest: $tag
-exit 1
-fi
+
