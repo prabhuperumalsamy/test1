@@ -14,8 +14,7 @@ echo Checking for latest image at ECR Repository
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/$reponame
 tag=$(aws ecr describe-images --repository-name $reponame --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
 
-echo The Latest image found in $app:$tag
-echo The given Image tag found in ECR Repository;
+echo The Latest image going to be deployed in $app:$tag
 sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/$app.yaml
 
 echo logging in to cluster
@@ -23,6 +22,11 @@ aws eks --region us-east-1 update-kubeconfig --name $clustername
 
 echo Deployment has been initiated........
 kubectl apply -f ./infra/automation/deployment/$app.yaml -n actimize
+
+#command used to check the Pod status post deployment 
+echo Please find below the $app pod status....
+sleep 60
+kubectl get pods -n actimize  | grep $app
 
 cd ~/.aws
 rm -f /root/.aws/credentials
