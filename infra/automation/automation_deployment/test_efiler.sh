@@ -9,13 +9,14 @@ echo AWS credentials configured Successfully
 #Command used to find the current image running inside the pod
 oldimage=$(kubectl describe deployment $app -n actimize | grep Image)
 echo Current running $app image:$oldimage
+nativeimage=grep -w "556277294023.dkr.ecr.us-east-1.amazonaws.com/$cluster" | awk -F: '{print $2}'
 
 echo Checking for latest image at ECR Repository
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/$reponame
 tag=$(aws ecr describe-images --repository-name actimize-test-efiler --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
 
 echo The Latest image found in $app:$tag
-if [ "$oldimage" -nq "$tag" ]; then
+if [ "$nativeimage" -nq "$tag" ]; then
 echo The given Image tag found in ECR Repository;
 sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/$app.yaml
 
