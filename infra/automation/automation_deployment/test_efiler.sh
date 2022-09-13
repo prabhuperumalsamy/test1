@@ -13,7 +13,7 @@ echo $tag
 sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/$app.yaml
 
 echo logging in to cluster
-aws eks --region us-east-1 update-kubeconfig --name test-actimize-eksCluster-0da6128
+aws eks --region us-east-1 update-kubeconfig --name $clustername
 
 echo Deployment has been initiated........
 kubectl apply -f ./infra/automation/deployment/$app.yaml -n actimize
