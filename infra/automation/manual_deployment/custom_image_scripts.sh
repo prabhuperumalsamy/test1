@@ -21,7 +21,7 @@ repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-$env-$app
 #!/bin/bash
 ecrtag=$(aws ecr describe-images --repository-name=actimize-$env-$app  --image-ids=imageTag=$tag | jq '.imageDetails[0].imageTags[0]' -r)
 if [ "$ecrtag" = "$tag1" ]; then
-sed -i 's@apache:apache@'"$repo:$ecrtag"'@' ./yamlfiles/$app.yaml
+sed -i 's@apache:apache@'"$repo:$ecrtag"'@' ./infra/automation/deployment/$app.yaml
 echo The given Image tag found in ECR Repository;
 else
 echo Please check the provided inputs are valid
@@ -47,7 +47,7 @@ aws eks --region us-east-1 update-kubeconfig --name $cluster
 
 #command to inititate the deployment
 echo Deployment has been initiated........
-kubectl apply -f ./yamlfiles/$app.yaml -n actimize
+kubectl apply -f ./infra/automation/deployment/efiler.yaml/$app.yaml -n actimize
 echo ---------------------------------------------------------------------------------------
 
 #command used to check the Pod status post deployment 
