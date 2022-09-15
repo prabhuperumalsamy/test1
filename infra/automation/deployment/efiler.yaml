@@ -31,7 +31,7 @@ spec:
       containers:
       - env:
         - name: AWS_ROLE_ARN
-          value: arn:aws:iam::556277294023:beta/beta
+          value: arn:aws:iam::556277294023:role/beta
         - name: AWS_WEB_IDENTITY_TOKEN_FILE
           value: /run/secrets/eks.amazonaws.com/serviceaccount/token
         image: apache:apache
