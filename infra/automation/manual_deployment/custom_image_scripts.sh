@@ -15,7 +15,7 @@ tag1=$(grep -w "deployment_tag" ./infra/automation/manual_deployment/manual_depl
 env=$(grep -w "environment" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 app=$(grep -w "application" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 cluster=$(grep -w "cluster" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
-rolez=$(grep -w "role" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
+rolez=$(grep -w "role_arn" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-$env-$app
 
 #checking user inputs with ECR Registry
