@@ -16,14 +16,14 @@ echo Current running $app:$oldimage
 echo Checking for latest image at ECR Repository
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/$reponame
 tag=$(aws ecr describe-images --repository-name $reponame --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
-#role1="role"
-#role2=$role
+role1="role"
+role2=$role
 
 
 #command used to push the repo and tag values to deployment files
 echo The Latest image going to be deployed in $app:$tag
 sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/$app.yaml
-#sed -i 's@beta/beta@'"$role1/$role2"'@' ./infra/automation/deployment/$app.yaml
+sed -i 's@beta/beta@'"$role1/$role2"'@' ./infra/automation/deployment/$app.yaml
 
 #command used to login to cluster
 echo logging in to cluster
