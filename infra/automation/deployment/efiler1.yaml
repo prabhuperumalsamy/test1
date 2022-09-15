@@ -55,3 +55,13 @@ spec:
           name: logs-undefined
         - mountPath: /var/log
           name: app-var-log
+      volumes:
+      - name: rcm-sars
+        persistentVolumeClaim:
+          claimName: rcm-sars
+      - emptyDir: {}
+        name: logs
+      - emptyDir: {}
+        name: logs-undefined
+      - emptyDir: {}
+        name: app-var-log
