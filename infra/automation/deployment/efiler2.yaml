@@ -46,3 +46,13 @@ spec:
             memory: 2Gi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+      volumes:
+      - name: rcm-sars
+        persistentVolumeClaim:
+          claimName: rcm-sars
+      - emptyDir: {}
+        name: logs
+      - emptyDir: {}
+        name: logs-undefined
+      - emptyDir: {}
+        name: app-var-log
