@@ -49,7 +49,7 @@ aws eks --region us-east-1 update-kubeconfig --name $cluster
 
 #command to inititate the deployment
 echo Deployment has been initiated........
-kubectl apply -f ./infra/automation/deployment/efiler.yaml/$app.yaml -n actimize
+kubectl apply -f ./infra/automation/deployment/$app.yaml -n actimize
 echo ---------------------------------------------------------------------------------------
 
 #command used to check the Pod status post deployment 
