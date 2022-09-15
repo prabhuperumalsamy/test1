@@ -20,6 +20,7 @@ tag=$(aws ecr describe-images --repository-name $reponame --output text --query 
 #command used to push the repo and tag values to deployment files
 echo The Latest image going to be deployed in $app:$tag
 sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/$app.yaml
+sed -i 's@roles'"$role"'@" ../infra/automation/deployment/$app.yaml
 
 #command used to login to cluster
 echo logging in to cluster
