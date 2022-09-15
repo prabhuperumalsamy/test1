@@ -15,7 +15,7 @@ tag1=$(grep -w "deployment_tag" ./infra/automation/manual_deployment/manual_depl
 env=$(grep -w "environment" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 app=$(grep -w "application" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 cluster=$(grep -w "cluster" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
-role=$(grep -w "role" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
+rolez=$(grep -w "role" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-$env-$app
 
 #checking user inputs with ECR Registry
@@ -23,7 +23,7 @@ repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-$env-$app
 ecrtag=$(aws ecr describe-images --repository-name=actimize-$env-$app  --image-ids=imageTag=$tag | jq '.imageDetails[0].imageTags[0]' -r)
 if [ "$ecrtag" = "$tag1" ]; then
 sed -i 's@apache:apache@'"$repo:$ecrtag"'@' ./infra/automation/deployment/$app.yaml
-sed -i 's@beta@'"$role"'@' ./infra/automation/deployment/$app.yaml
+sed -i 's@beta@'"$rolez"'@' ./infra/automation/deployment/$app.yaml
 echo The given Image tag found in ECR Repository;
 else
 echo Please check the provided inputs are valid
