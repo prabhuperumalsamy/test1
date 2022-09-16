@@ -11,11 +11,13 @@ echo AWS credentials configured inside custom image Successfully
 #Fecthing user inputs from manual_deployment_parameters.yaml file and proceeding for deployment
 echo Checking for user inputs from mamaul_deployment_parameters.yaml file
 tag=$(grep -w "deployment_tag" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
-tag1=$(grep -w "deployment_tag" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 env=$(grep -w "environment" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 app=$(grep -w "application" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 cluster=$(grep -w "cluster" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
-rolez=$(grep -w "container_role_arn" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
+
+#getting inputs from manual_deployment_parameters.yaml file and passing value with diffrent name in the script
+tag1=$(grep -w "deployment_tag" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
+rolez=$(grep -w "environment" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-$env-$app
 
 #checking user inputs with ECR Registry
