@@ -8,6 +8,10 @@ echo Aws credentials retrieved from secret manager.......
 aws configure set aws_access_key_id $accesskey; aws configure set aws_secret_access_key $secretkey; aws configure set default.region "us-east-1"; aws configure set default.format "json"
 echo AWS credentials configured Successfully
 
+#command used to login to cluster
+echo logging in to cluster
+aws eks --region us-east-1 update-kubeconfig --name $clustername
+
 #command used to find the current image running inside the pod
 oldimage=$(kubectl describe deployment $app -n actimize | grep Image)
 echo Current running $app:$oldimage
@@ -17,15 +21,10 @@ echo Checking for latest image at ECR Repository
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/$reponame
 tag=$(aws ecr describe-images --repository-name $reponame --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
 
-
 #command used to push the repo and tag values to deployment files
 echo The Latest image going to be deployed in $app:$tag
 sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/$app.yaml
 sed -i 's@beta@'"$role"'@' ./infra/automation/deployment/$app.yaml
-
-#command used to login to cluster
-echo logging in to cluster
-aws eks --region us-east-1 update-kubeconfig --name $clustername
 
 #command to initiate the deployment in kubernet Pods
 echo Deployment has been initiated........
