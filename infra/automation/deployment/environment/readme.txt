@@ -1,6 +1,6 @@
 The folder are created as per environment ( live, prod, test) and application kustomize configuration has been created accordingly
   eg: test (folder ) // The folder is created to store test configuration files of each application 
-        efiler (folder) //The folder contains the kustomization scripts and required files for test efiler application
+        efiler (folder) //The folder contains the kustomization scripts and required files for test efiler application deployment
             kustomize.yaml (file) // The file contains the below details
                                   //1. The file contains the image which is going to be deployed in test efiler application
                                   //2. The information about which file need to be called for execution (arn_efiler.yaml) for execution
