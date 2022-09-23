@@ -23,8 +23,7 @@ tag=$(aws ecr describe-images --repository-name $reponame --output text --query 
 
 #command used to push the repo and tag values to deployment files
 echo The Latest image going to be deployed in $app:$tag
-sed -i 's@apache:apache@'"$repo:$tag"'@' ./infra/automation/deployment/$app.yaml
-sed -i 's@beta@'"$role"'@' ./infra/automation/deployment/$app.yaml
+sed -i 's@apache@'"$tag"'@' ./infra/automation/deployment/environment/$role/$app/kustomization.yaml
 
 #command to initiate the deployment in kubernet Pods
 echo Deployment has been initiated........
