@@ -15,17 +15,20 @@ env=$(grep -w "environment" ./infra/automation/manual_deployment/manual_deployme
 app=$(grep -w "application" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 cluster=$(grep -w "cluster" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 
+#logging into the cluster
+echo logging in to cluster
+aws eks --region us-east-1 update-kubeconfig --name $cluster
+
 #getting inputs from manual_deployment_parameters.yaml file and passing value with diffrent name in the script
 tag1=$(grep -w "deployment_tag" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
-rolez=$(grep -w "environment" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
+role=$(grep -w "environment" ./infra/automation/manual_deployment/manual_deployment_parameters.yaml | awk -F= '{print $2}')
 repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-$env-$app
 
 #checking user inputs with ECR Registry
 #!/bin/bash
 ecrtag=$(aws ecr describe-images --repository-name=actimize-$env-$app  --image-ids=imageTag=$tag | jq '.imageDetails[0].imageTags[0]' -r)
 if [ "$ecrtag" = "$tag1" ]; then
-sed -i 's@apache:apache@'"$repo:$ecrtag"'@' ./infra/automation/deployment/$app.yaml
-sed -i 's@beta@'"$rolez"'@' ./infra/automation/deployment/$app.yaml
+sed -i 's@alpha@'"$ecrtag"'@' ./infra/automation/deployment/environment/$role/$app/kustomization.yaml
 echo The given Image tag found in ECR Repository;
 else
 echo Please check the provided inputs are valid
@@ -45,13 +48,9 @@ echo ---------------------------------------------------------------------------
 echo latest image going to deploy $tag and image retrived from $repo
 
 
-#logging into the cluster
-echo logging in to cluster
-aws eks --region us-east-1 update-kubeconfig --name $cluster
-
 #command to inititate the deployment
 echo Deployment has been initiated........
-kubectl apply -f ./infra/automation/deployment/$app.yaml -n actimize
+kubectl apply -k ./infra/automation/deployment/environment/$role/$app
 echo ---------------------------------------------------------------------------------------
 
 #command used to check the Pod status post deployment 
