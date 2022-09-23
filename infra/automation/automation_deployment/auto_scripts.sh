@@ -18,16 +18,16 @@ echo Current running $app:$oldimage
 
 #command used to check latest image in application repository
 echo Checking for latest image at ECR Repository
-repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/$reponame
-tag=$(aws ecr describe-images --repository-name $reponame --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
+repo=556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-$role-$app
+tag=$(aws ecr describe-images --repository-name actimize-$role-$app --output text --query 'sort_by(imageDetails,& imagePushedAt)[*].imageTags[*]' | tr '\t' '\n' | tail -1)
 
 #command used to push the repo and tag values to deployment files
 echo The Latest image going to be deployed in $app:$tag
-sed -i 's@apache@'"$tag"'@' ./infra/automation/deployment/environment/$role/$app/kustomization.yaml
+sed -i 's@alpha@'"$tag"'@' ./infra/automation/deployment/environment/$role/$app/kustomization.yaml
 
 #command to initiate the deployment in kubernet Pods
 echo Deployment has been initiated........
-kubectl apply -f ./infra/automation/deployment/$app.yaml -n actimize
+kubectl apply -k ./infra/automation/deployment/environment/$role/$app
 
 #command used to check the Pod status post deployment 
 echo Please find below the $app pod status....
