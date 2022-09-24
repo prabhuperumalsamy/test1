@@ -6,6 +6,7 @@ bases:
 
 patchesStrategicMerge:
 - arn_efiler.yaml
+- replica_efiler.yaml
 
 images:
 - name: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-efiler
