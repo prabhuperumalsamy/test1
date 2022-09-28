@@ -13,5 +13,5 @@ spec:
         - name: AWS_WEB_IDENTITY_TOKEN_FILE
           value: /run/secrets/eks.amazonaws.com/serviceaccount/token
         name: efiler
-      serviceAccount: actimize-test-k8s-pods
-      serviceAccountName: actimize-test-k8s-pods
+      serviceAccount: actimize-prod-k8s-pods
+      serviceAccountName: actimize-prod-k8s-pods
