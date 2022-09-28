@@ -4,4 +4,4 @@ metadata:
   name: efiler
   namespace: actimize
 spec:
-  replicas: 2
+  replicas: 1
