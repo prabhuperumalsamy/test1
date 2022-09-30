@@ -34,7 +34,7 @@ spec:
           value: arn:aws:iam::556277294023:role/actimize-test-k8s-pods
         - name: AWS_WEB_IDENTITY_TOKEN_FILE
           value: /run/secrets/eks.amazonaws.com/serviceaccount/token
-        image: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-udmsim:1ff6694d3f8d86d1023e5b3ae03b42d2c6d7217a
+        image: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-udmsim:cc48bcfb8ad451476ac8850d942ae2d7814bf91c
         imagePullPolicy: Always
         name: udmsim
         ports:
