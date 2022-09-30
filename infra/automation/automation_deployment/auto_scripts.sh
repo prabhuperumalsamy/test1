@@ -8,9 +8,9 @@ echo Aws credentials retrieved from secret manager.......
 aws configure set aws_access_key_id $accesskey; aws configure set aws_secret_access_key $secretkey; aws configure set default.region "us-east-1"; aws configure set default.format "json"
 echo AWS credentials configured Successfully
 
-app=efiler
-clustername=test-actimize-eksCluster-0da6128
-role=test
+echo $app
+echo $cluster
+echo $role
 
 #command used to login to cluster
 echo logging in to cluster
