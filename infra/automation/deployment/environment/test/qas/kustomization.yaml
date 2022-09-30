@@ -5,8 +5,8 @@ bases:
 - ../../../application/qas/test
 
 patchesStrategicMerge:
-arn_qas.yaml
-replica_qas.yaml
+- arn_qas.yaml
+- replica_qas.yaml
 
 images:
 - name: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-qas
