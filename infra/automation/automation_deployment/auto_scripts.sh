@@ -1,3 +1,7 @@
+app=efiler
+clustername=test-actimize-eksCluster-0da6128
+role=test
+
 #The below commands are used to get accesskey and secret key from the aws secret manager
 echo checking for AWS credentials from Secret Manager
 accesskey=$(aws secretsmanager get-secret-value --secret-id 'automation_access_key' --query 'SecretString' --output text | jq -r '.automation_id')
