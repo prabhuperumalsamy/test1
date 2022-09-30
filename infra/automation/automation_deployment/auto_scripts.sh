@@ -10,7 +10,7 @@ echo AWS credentials configured Successfully
 
 #command used to login to cluster
 echo logging in to cluster
-aws eks --region us-east-1 update-kubeconfig --name test-actimize-eksCluster-0da6128
+aws eks --region us-east-1 update-kubeconfig --name $clustername
 
 #command used to find the current image running inside the pod
 oldimage=$(kubectl describe deployment $app -n actimize | grep Image)
