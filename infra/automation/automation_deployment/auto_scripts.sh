@@ -1,6 +1,3 @@
-app=efiler
-clustername=test-actimize-eksCluster-0da6128
-role=test
 
 #The below commands are used to get accesskey and secret key from the aws secret manager
 echo checking for AWS credentials from Secret Manager
