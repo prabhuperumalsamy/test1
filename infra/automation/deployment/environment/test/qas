@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  generation: 2
+  labels:
+    app: qas
+    app.kubernetes.io/managed-by: pulumi
+  name: qas
+  namespace: actimize
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: qas
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: qas
+      namespace: actimize
+    spec:
+      containers:
+      - env:
+        - name: AWS_ROLE_ARN
+          value: arn:aws:iam::556277294023:role/actimize-test-k8s-pods
+        - name: AWS_WEB_IDENTITY_TOKEN_FILE
+          value: /run/secrets/eks.amazonaws.com/serviceaccount/token
+        image: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-qas:cc48bcfb8ad451476ac8850d942ae2d7814bf91c
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 60
+          httpGet:
+            path: /heartbeat
+            port: 2346
+            scheme: HTTP
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: qas
+        ports:
+        - containerPort: 2345
+          name: ais0
+          protocol: TCP
+        - containerPort: 2346
+          name: ais1
+          protocol: TCP
+        - containerPort: 2347
+          name: ais2
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "2"
+            memory: 8Gi
+          requests:
+            cpu: "2"
+            memory: 4Gi
+        startupProbe:
+          failureThreshold: 60
+          httpGet:
+            path: /heartbeat
+            port: 2346
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/actimize/ais_server/Instances/qas/logs
+          name: qas-logs
+      dnsPolicy: ClusterFirst
+      hostname: qas
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: actimize-test-k8s-pods
+      serviceAccountName: actimize-test-k8s-pods
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: qas-logs
+        persistentVolumeClaim:
+          claimName: qas-logs
+
