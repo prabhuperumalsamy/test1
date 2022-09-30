@@ -6,7 +6,6 @@ metadata:
   generation: 2
   labels:
     app: qas
-    app.kubernetes.io/managed-by: pulumi
   name: qas
   namespace: actimize
 spec:
