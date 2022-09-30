@@ -6,11 +6,7 @@ secretkey=$(aws secretsmanager get-secret-value --secret-id 'automation_access_k
 #The received aws credentials are configured inside the custom image 
 echo Aws credentials retrieved from secret manager.......
 aws configure set aws_access_key_id $accesskey; aws configure set aws_secret_access_key $secretkey; aws configure set default.region "us-east-1"; aws configure set default.format "json"
-echo AWS credentials configured Successfully
-
-echo $app
-echo $cluster
-echo $role
+echo AWS credentials configured Successfully $app $clustername $role
 
 #command used to login to cluster
 echo logging in to cluster
