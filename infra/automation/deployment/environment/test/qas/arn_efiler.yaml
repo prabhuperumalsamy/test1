@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: efiler
+  name: qas
   namespace: actimize
 spec:
   template:
@@ -12,6 +12,6 @@ spec:
           value: arn:aws:iam::556277294023:role/actimize-test-k8s-pods
         - name: AWS_WEB_IDENTITY_TOKEN_FILE
           value: /run/secrets/eks.amazonaws.com/serviceaccount/token
-        name: efiler
+        name: qas
       serviceAccount: actimize-test-k8s-pods
       serviceAccountName: actimize-test-k8s-pods
