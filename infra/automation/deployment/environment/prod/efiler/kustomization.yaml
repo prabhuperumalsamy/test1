@@ -7,3 +7,8 @@ bases:
 patchesStrategicMerge:
 - aws_info.yaml
 - replica.yaml
+- vector.yaml
+
+images:
+- name: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-prod-efiler
+  newTag: alpha
