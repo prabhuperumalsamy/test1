@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-  generation: 7
   labels:
     app: rcm
   name: rcm
