@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+- ../../../application/sam1
+
+patchesStrategicMerge:
+- aws_info.yaml
+- replica.yaml
+- vector.yaml
+
+images:
+- name: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-prod-sam1
+  newTag: alpha
