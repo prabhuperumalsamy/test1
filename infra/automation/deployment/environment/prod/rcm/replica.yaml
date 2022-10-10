@@ -4,4 +4,4 @@ metadata:
   name: rcm
   namespace: actimize
 spec:
-  replicas: 1
+  replicas: 3
