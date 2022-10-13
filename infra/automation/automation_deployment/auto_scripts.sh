@@ -28,12 +28,12 @@ sed -i 's@alpha@'"$tag"'@' ./infra/automation/deployment/environment/$role/$app/
 
 #command to initiate the deployment in kubernet Pods
 echo Deployment has been initiated........
-kubectl apply -k ./infra/automation/deployment/environment/$role/$app
+kubectl apply -k ./infra/automation/deployment/environment/$role/$app -o yaml --dry-run=server
 
 #command used to check the Pod status post deployment 
 echo Please find below the $app pod status....
 sleep 60
-kubectl get pods -n actimize  | grep $app
+kubectl get pods -n actimize  | grep $app-
 
 #command to remove AWS credentials from custom image
 cd ~/.aws
