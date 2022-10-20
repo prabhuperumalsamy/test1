@@ -28,6 +28,19 @@ spec:
         app: rcm
       namespace: actimize
     spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: "topology.kubernetes.io/zone"
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: rcm
+      - maxSkew: 1
+        topologyKey: "kubernetes.io/hostname"
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: rcm
       containers:
       - env:
         - name: AWS_ROLE_ARN
@@ -74,19 +87,6 @@ spec:
       serviceAccount: actimize-test-k8s-pods
       serviceAccountName: actimize-test-k8s-pods
       terminationGracePeriodSeconds: 30
-      topologySpreadConstraints:
-      - labelSelector:
-          matchLabels:
-            app: rcm
-        maxSkew: 1
-        topologyKey: topology.kubernetes.io/zone
-        whenUnsatisfiable: ScheduleAnyway
-      - labelSelector:
-          matchLabels:
-            app: rcm
-        maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: ScheduleAnyway
       volumes:
       - name: rcm-logs
         persistentVolumeClaim:
