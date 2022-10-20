@@ -9,7 +9,7 @@ spec:
       containers:
       - env:
         - name: AWS_ROLE_ARN
-          value: arn:aws:iam::556277294023:role/actimize-test-k8s-pods
+          value: arn:aws:iam::556277294023:role/actimize-prod-k8s-pods
         - name: AWS_WEB_IDENTITY_TOKEN_FILE
           value: /run/secrets/eks.amazonaws.com/serviceaccount/token
         name: rcm
