@@ -7,7 +7,7 @@ bases:
 patchesStrategicMerge:
 - arn_rcm.yaml
 - replica_rcm.yaml
-- vector.yaml
+- vector_sidecar.yaml
 
 images:
 - name: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-rcm
