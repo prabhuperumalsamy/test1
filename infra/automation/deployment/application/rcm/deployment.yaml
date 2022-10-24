@@ -6,7 +6,7 @@ metadata:
   generation: 7
   labels:
     app: rcm
-    app.kubernetes.io/managed-by: pulumi
+    app.kubernetes.io/managed-by: Codebuild
   name: rcm
   namespace: actimize
 spec:
