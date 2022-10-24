@@ -12,6 +12,6 @@ spec:
           value: arn:aws:iam::556277294023:role/actimize-prod-k8s-pods
         - name: AWS_WEB_IDENTITY_TOKEN_FILE
           value: /run/secrets/eks.amazonaws.com/serviceaccount/token
-        name: efiler
+        name: rcm
       serviceAccount: actimize-prod-k8s-pods
       serviceAccountName: actimize-prod-k8s-pods
