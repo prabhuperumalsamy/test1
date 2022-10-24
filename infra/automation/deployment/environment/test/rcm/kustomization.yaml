@@ -5,11 +5,9 @@ bases:
 - ../../../application/rcm
 
 patchesStrategicMerge:
-- arn_rcm.yaml
-- replica_rcm.yaml
-- vector_sidecar.yaml
+- aws_info.yaml
+- replica.yaml
 
 images:
 - name: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-rcm
-  newName: 556277294023.dkr.ecr.us-east-1.amazonaws.com/actimize-test-rcm
   newTag: alpha
