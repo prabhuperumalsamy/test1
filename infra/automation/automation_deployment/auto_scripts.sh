@@ -30,6 +30,10 @@ sed -i 's@alpha@'"$tag"'@' ./infra/automation/deployment/environment/$role/$app/
 echo Deployment has been initiated........
 kubectl apply -k ./infra/automation/deployment/environment/$role/$app
 
+#command to check the deployment status
+echo Please find the deployment status
+kubectl rollout status deployment/$app -n actimize
+
 #command used to check the Pod status post deployment 
 echo Please find below the $app pod status....
 sleep 60
